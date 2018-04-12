@@ -1,0 +1,43 @@
+---
+- hosts: all
+  order: sorted
+  gather_facts: False
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt: update_cache=yes
+
+    - name: Install Vim
+      apt: pkg=vim state=present
+
+    - name: Install MC
+      apt: pkg=mc state=present
+
+    - name: Install Network-Tools
+      apt: pkg=net-tools state=present
+
+    - name: Create new user
+      user:
+        name: newuser
+
+    - name: Create .ssh folder
+      file:
+        path: ~newuser/.ssh
+        state: directory
+        owner: newuser
+        group: newuser
+        mode: 0700
+
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: newuser
+        state: present
+        key: "{{ lookup('file', '/Users/anecheporuk/.ssh/id_rsa.pub') }}"
+    
+    - name: Add ssh-agent config
+      template: src="{{ '.ssh/config' }}" dest="{{ '/home/newuser/.ssh/' }}" backup=yes
+
+
+
+
+
