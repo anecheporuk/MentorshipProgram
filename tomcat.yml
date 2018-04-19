@@ -1,5 +1,7 @@
----
-  roles: 
-   - common
-   - java
-   - tomcat
+- name: Install TomCat
+  hosts: node2
+  become: yes
+  roles:
+    - common
+    - java
+    - tomcat
