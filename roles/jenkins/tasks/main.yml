@@ -1,2 +1,15 @@
 ---
-# tasks file for jenkins
+
+- name: install jenkins apt key
+  apt_key: 
+    url: "https://pkg.jenkins.io/debian/jenkins-ci.org.key"
+
+- name: install the repo
+  apt_repository: 
+    repo: "deb http://pkg.jenkins.io/debian-stable binary/"
+
+- name: install jenkins
+  apt:
+    update_cache: True
+    cache_valid_time: 3600
+    name: jenkins
