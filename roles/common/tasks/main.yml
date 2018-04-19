@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+ 
+   - name: Install Base Packages
+     become: yes
+     apt: name={{item}} state=latest 
+     with_items:
+       - ntp
+       - vim
+       - mc
+       - net-tools
+
+   - name: Create new user
+      user:
+        name: newuser
+
+    - name: Create .ssh folder
+      file:
+        path: ~newuser/.ssh
+        state: directory
+        owner: newuser
+        group: newuser
+        mode: 0700
+
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: newuser
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
