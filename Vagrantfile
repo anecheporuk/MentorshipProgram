@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
 
     node1.vm.provision "ansible" do |ansible|
       ansible.compatibility_mode = '2.0'
-      ansible.playbook = "roles/java/tasks/main.yml"
+      ansible.playbook = "jenkins.yml"
     end
   end
 

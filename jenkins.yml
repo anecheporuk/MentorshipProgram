@@ -1,4 +1,7 @@
----
+- name: Install Jenkins 
+  hosts: node1
+  become: yes
   roles:
+    - common
     - java
     - jenkins
