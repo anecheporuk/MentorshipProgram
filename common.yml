@@ -32,4 +32,4 @@
       authorized_key:
         user: newuser
         state: present
-        key: "{{ lookup('file', '/Users/anecheporuk/.ssh/id_rsa.pub') }}"
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
