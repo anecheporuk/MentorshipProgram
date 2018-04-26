@@ -1,0 +1,6 @@
+- name: Install Gitlab
+  hosts: node3
+  become: yes
+  roles:
+    - common
+    - gitlab

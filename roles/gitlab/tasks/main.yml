@@ -1,0 +1,32 @@
+---
+- name: Check if GitLab configuration file already exists.
+  stat: path=/etc/gitlab/gitlab.rb
+  register: gitlab_config_file
+
+- name: Check if GitLab is already installed.
+  stat: path=/usr/bin/gitlab-ctl
+  register: gitlab_file
+
+- name: Install and configure the necessary dependencies
+  become: true
+  apt: name={{item}} state=latest 
+  with_items:
+    - curl
+    - openssh-server
+    - ca-certificates
+    - postfix
+
+- name: Download GitLab repository installation script.
+  get_url:
+    url: "https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh"
+    dest: /tmp/script.deb.sh
+    validate_certs: yes
+  when: (gitlab_file.stat.exists == false)
+
+- name: Install GitLab repository
+  command: bash /tmp/script.deb.sh
+  when: (gitlab_file.stat.exists == false)
+
+
+
+
