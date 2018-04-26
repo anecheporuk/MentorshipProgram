@@ -18,20 +18,12 @@
       get_url: url=http://archive.apache.org/dist/tomcat/tomcat-8/v8.5.8/bin/apache-tomcat-8.5.8.tar.gz dest=/opt/apache-tomcat-8.5.8.tar.gz
       become: true
 
-#    - name: Extract Tomcat archive
-#      command: tar zxvf /opt/apache-tomcat-8.5.8.tar.gz -C /opt/ creates=/opt/tomcat
-#      become: true
     - name: Extract Tomcat archive Custom
       unarchive:
          src: /opt/apache-tomcat-8.5.8.tar.gz
          dest: /opt/tomcat
          copy: no
          extra_opts: [--strip-components=1]
-
-
-#    - name: copy Tomcat
-#      command: mv /opt/apache-tomcat-8.5.8 /opt/tomcat
-#      become: true
 
     - name: Set Tomcat Deployment Directory Permissions
       file: dest=/opt/tomcat state=directory owner=tomcat  group=tomcat  mode=0775
