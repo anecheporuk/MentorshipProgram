@@ -1,0 +1,5 @@
+---
+artifactory_version: artifactory-oss-5.10.4
+artifactory_dir: /opt/{{ artifactory_version }}
+artifactory_zip_file: artifactory-oss-5.10.4.zip
+artifactory_zip_url: https://bintray.com/jfrog/artifactory/download_file?file_path=jfrog-artifactory-oss-5.10.4.zip

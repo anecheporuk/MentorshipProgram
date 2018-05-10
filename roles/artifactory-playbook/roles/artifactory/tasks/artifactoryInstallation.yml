@@ -1,0 +1,39 @@
+---
+- name: artifactory | Install dependencies
+  yum: pkg={{ item }} state=installed
+  become: true
+  with_items:
+    - unzip
+    - net-tools
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+  tags: artifactory
+
+
+- name: artifactory | Create directory for JFrog
+  file:
+    path: /opt/jfrog
+    state: directory
+    mode: 0755
+
+- name: artifactory | Download artifactory zip
+  get_url: url={{ artifactory_zip_url }} dest=/opt
+
+- name: artifactory | Extract artifactory
+  unarchive:
+     src: /opt/jfrog-artifactory-oss-5.10.4.zip
+     dest: /opt/jfrog
+     copy: no
+     extra_opts: [--strip-components=1]
+
+- name: artifactory | Getting in to installation directory
+  become: true
+  shell: cd /opt/jfrog/bin
+
+- name: artifactory| Install service
+  become: true
+  shell: bash /opt/jfrog/bin/installService.sh
+
+- name: artifactory | Start/Restart artifactory
+  become: true
+  service: name=artifactory state=started
