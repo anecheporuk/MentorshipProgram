@@ -1,4 +1,6 @@
 - hosts: node4 
   become: true
   roles:
-    - artifactory
+   - common
+   - java 
+   - artifactory
