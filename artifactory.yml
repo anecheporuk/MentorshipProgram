@@ -1,5 +1,4 @@
-- name: Install Jfrog
-  hosts: node4
+- hosts: node4 
   become: true
   roles:
     - artifactory

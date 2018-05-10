@@ -34,9 +34,9 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define :node4 do |node4|
-    node4.vm.box      = 'centos/7'
+    node4.vm.box      = 'bento/ubuntu-16.04'
     node4.vm.network "private_network", ip: "192.168.56.103"
-    node4.vm.network "forwarded_port", guest: 8080, host: 8803
+    node4.vm.network "forwarded_port", guest: 8080, host: 8088
 
   node4.vm.provision "ansible" do |ansible|
     ansible.compatibility_mode = "2.0"
