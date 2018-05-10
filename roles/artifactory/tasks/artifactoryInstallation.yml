@@ -9,10 +9,9 @@
     - java-1.8.0-openjdk-devel
   tags: artifactory
 
-
 - name: artifactory | Create directory for JFrog
   file:
-    path: /opt/jfrog
+    path: /opt/jfrog-artifactory-oss-5.10.4
     state: directory
     mode: 0755
 
@@ -22,17 +21,16 @@
 - name: artifactory | Extract artifactory
   unarchive:
      src: /opt/jfrog-artifactory-oss-5.10.4.zip
-     dest: /opt/jfrog
+     dest: /opt
      copy: no
-     extra_opts: [--strip-components=1]
 
 - name: artifactory | Getting in to installation directory
   become: true
-  shell: cd /opt/jfrog/bin
+  shell: cd /opt/artifactory-oss-5.10.4/bin
 
 - name: artifactory| Install service
   become: true
-  shell: bash /opt/jfrog/bin/installService.sh
+  shell: bash /opt/artifactory-oss-5.10.4/bin/installService.sh
 
 - name: artifactory | Start/Restart artifactory
   become: true
